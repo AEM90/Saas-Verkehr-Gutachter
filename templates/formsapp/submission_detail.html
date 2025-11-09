@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Submission {{ submission.pk }}</title>
+</head>
+<body>
+    <h1>Submission {{ submission.pk }} — {{ submission.messmethode.name }}</h1>
+    <p>Company: {{ submission.company }}</p>
+    <p>Created by: {{ submission.created_by }}</p>
+    <p>Created at: {{ submission.created_at }}</p>
+    <p>Submitted: {{ submission.submitted }}</p>
+
+    <h2>Field values</h2>
+    <ul>
+    {% for fv in field_values %}
+        <li><strong>{{ fv.field.label }}</strong>:
+            {% if fv.value_file %}
+                <a href="{{ fv.value_file.url }}">file</a>
+            {% else %}
+                {{ fv.value_text }}
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No field values yet.</li>
+    {% endfor %}
+    </ul>
+
+    <h2>Generated reports</h2>
+    <ul>
+    {% for r in reports %}
+        <li>
+            #{{ r.pk }} — {{ r.template.name }} — status: {{ r.status }}
+            {% if r.file %}
+                — <a href="{{ r.file.url }}">Download</a>
+            {% endif %}
+            {% if r.error %}
+                <pre style="color:red">{{ r.error }}</pre>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No reports yet.</li>
+    {% endfor %}
+    </ul>
+
+    <p><a href="{% url 'formsapp:messmethode_detail' submission.messmethode.slug %}">Back to form</a></p>
+</body>
+</html>
