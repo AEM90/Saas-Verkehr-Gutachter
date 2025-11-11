@@ -150,6 +150,22 @@ main[role="main"], .main-content {
   grid-column: 2 / 3;
 }
 
+/* Align submission row content: center vertically and distribute space between title/meta and actions */
+.submission-list .item-content {
+  display: flex;
+  align-items: center;         /* vertical centering */
+  justify-content: space-between; /* title/meta left, actions right */
+  gap: 12px;
+}
+
+.submission-list .item-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* center timestamp horizontally */
+  justify-content: center; /* center vertically */
+  min-width: 160px; /* reasonable width so centering looks consistent */
+}
+
 /* Actions column: compact buttons and small badges */
 .submission-list .item-actions {
   grid-column: 3 / 4;
@@ -160,6 +176,9 @@ main[role="main"], .main-content {
   align-items: center;
   flex-wrap: wrap;
 }
+
+/* keep actions centered vertically */
+.submission-list .item-actions { align-items: center; }
 
 /* Badges more compact */
 .badge {
@@ -274,18 +293,21 @@ main[role="main"], .main-content {
   margin-top: 18px;
 }
 
-/* Quick links look like calm tiles */
-/* Remove bullets and default left padding/margin */
+/* Quick links: horizontal by default, stack on small screens */
 .quick-links {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-/* Default vertical spacing (optional) */
-.quick-links li {
-  margin: 0.25rem 0;
-  padding: 0;
+.quick-links li { margin: 0; }
+
+@media (max-width: 600px) {
+  .quick-links { flex-direction: column; gap: 0.5rem; }
 }
 
 /* If you want the links inline (horizontal) use the .horizontal modifier */
@@ -314,6 +336,24 @@ ul.quick-links, ul.quick-links li {
   text-decoration: none;
   box-shadow: var(--shadow-2);
   font-weight: 600;
+}
+
+/* Floating Open Form button bottom-right */
+.open-form-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 1200;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--color-brand-1), var(--color-brand-2));
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 8px 22px rgba(6,95,70,0.14);
+  font-weight: 700;
 }
 
 /* ---------- Responsive tweaks ---------- */

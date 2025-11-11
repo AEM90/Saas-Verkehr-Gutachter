@@ -1,0 +1,17 @@
+{% comment %} Simple field widget partial. Use {% include 'field_widgets.html' with field=field %} when rendering dynamic FieldDefinition types. {% endcomment %}
+
+{% if field.field_type == 'boolean' %}
+  <div class="form-row">
+    <label>
+      <input type="checkbox" name="{{ field.name }}" id="id_{{ field.name }}" {% if field.required %}required{% endif %}>
+      {{ field.label }}
+    </label>
+    <small class="helptext">Select for Yes, leave unchecked for No</small>
+  </div>
+{% else %}
+  {# fallback: render text input #}
+  <div class="form-row">
+    <label for="id_{{ field.name }}">{{ field.label }}</label>
+    <input type="text" name="{{ field.name }}" id="id_{{ field.name }}" {% if field.required %}required{% endif %}>
+  </div>
+{% endif %}

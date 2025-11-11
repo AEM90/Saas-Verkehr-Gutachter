@@ -1,0 +1,41 @@
+{% load static %}
+{% extends "base.html" %}
+
+{% block head %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="page-header">
+    <h1>Submission List</h1>
+    <p class="subtitle">View and manage all submissions</p>
+  </div>
+
+  <ul class="submission-list">
+    {% for submission in submissions %}
+      <li>
+        <div class="item-content">
+          <div>
+            <div class="item-title">{{ submission.messmethode.name }}</div>
+            <div class="item-meta">
+              <span>{{ submission.created_at|date:"Y-m-d H:i" }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="item-actions">
+          <span class="badge">{{ submission.submitted|yesno:"Submitted,Draft" }}</span>
+          <a href="#" class="action-btn">View</a>
+          <a href="#" class="action-btn primary">Edit</a>
+        </div>
+      </li>
+    {% empty %}
+      <li style="text-align: center; padding: 20px;">No submissions yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'core:create_report' %}" class="open-form-btn">
+    <span>➕</span>
+    <span>Open Form</span>
+  </a>
+{% endblock %}
