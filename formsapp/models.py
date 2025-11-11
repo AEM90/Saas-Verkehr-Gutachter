@@ -19,6 +19,7 @@ FIELD_TYPES = [
     ("date", "Date"),
     ("choice", "Choice"),
     ("file", "File"),
+    ("boolean", "Boolean"),
 ]
 
 class FieldDefinition(models.Model):

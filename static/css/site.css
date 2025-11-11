@@ -148,6 +148,9 @@ main[role="main"], .main-content {
 /* Ensure title/meta occupy the middle column */
 .submission-list .item-content {
   grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Actions column: compact buttons and small badges */
@@ -186,6 +189,20 @@ main[role="main"], .main-content {
   background: linear-gradient(90deg, var(--color-brand-1) 0%, var(--color-brand-2) 40%, var(--color-brand-3) 100%);
   color: white;
   border: none;
+}
+
+/* Timestamp styling */
+.timestamp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Open form button positioned at bottom-right */
+.open-form-btn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
 }
 
 /* ---------- Forms: nicer, comfortable, two-column grid ---------- */

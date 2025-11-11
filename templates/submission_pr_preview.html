@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Submission List — Saas-Verkehr-Gutachter{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h2>Submission List</h2>
+  <p>View and manage all form submissions</p>
+</div>
+
+<ul class="submission-list">
+  {% for submission in submissions %}
+  <li>
+    <div class="item-content">
+      <div class="item-title">{{ submission.messmethode.name }}</div>
+      <div class="item-meta">
+        <span class="timestamp">
+          Submitted: {{ submission.created_at|date:"Y-m-d H:i" }}
+        </span>
+        {% if submission.created_by %}
+          <span> • By: {{ submission.created_by.get_full_name|default:submission.created_by.username }}</span>
+        {% endif %}
+      </div>
+    </div>
+    <div class="item-actions">
+      {% if submission.submitted %}
+        <span class="badge" style="background: var(--color-success, #10b981);">Submitted</span>
+      {% else %}
+        <span class="badge" style="background: var(--neutral-400, #9ca3af);">Draft</span>
+      {% endif %}
+      <a href="#" class="action-btn primary">View</a>
+      <a href="#" class="action-btn">Edit</a>
+    </div>
+  </li>
+  {% empty %}
+  <li style="text-align: center; padding: 40px;">
+    <p>No submissions found.</p>
+  </li>
+  {% endfor %}
+</ul>
+
+{% if submissions %}
+<div style="position: relative; padding: 20px;">
+  <a href="{% url 'core:create_report' %}" class="greenbutton open-form-btn">+ New Submission</a>
+</div>
+{% endif %}
+
+{% endblock %}
