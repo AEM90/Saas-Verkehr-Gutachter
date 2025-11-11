@@ -8,6 +8,7 @@ FIELD_WIDGETS = {
     "date": forms.DateInput,
     "choice": forms.Select,
     "file": forms.ClearableFileInput,
+    "boolean": forms.CheckboxInput,
 }
 
 def build_form_for_messmethode(messmethode, data=None, files=None):
@@ -46,6 +47,15 @@ def build_form_for_messmethode(messmethode, data=None, files=None):
             fields[key] = forms.ChoiceField(label=fd.label, required=required, choices=ctuple, widget=FIELD_WIDGETS["choice"]())
         elif ft == "file":
             fields[key] = forms.FileField(label=fd.label, required=required, widget=FIELD_WIDGETS["file"]())
+        elif ft == "boolean":
+            # Boolean field with checkbox widget
+            help_text = meta.get("help_text", "")
+            fields[key] = forms.BooleanField(
+                label=fd.label,
+                required=required,
+                widget=FIELD_WIDGETS["boolean"](),
+                help_text=help_text if help_text else None
+            )
         else:
             # fallback to CharField
             fields[key] = forms.CharField(label=fd.label, required=required, widget=FIELD_WIDGETS["text"]())

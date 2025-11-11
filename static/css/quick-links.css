@@ -1,0 +1,22 @@
+/* quick-links.css - horizontal quick links by default */
+
+.quick-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+}
+
+.quick-links li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Make sure no bullets appear */
+ul.quick-links,
+ul.quick-links li {
+  list-style: none !important;
+}
