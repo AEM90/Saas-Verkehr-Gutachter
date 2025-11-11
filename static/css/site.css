@@ -128,7 +128,7 @@ main[role="main"], .main-content {
   /* ensure it sits in the first grid column and is centered */
   grid-column: 1 / 2;
   justify-self: center;
-  align-self: center;
+  align-self: start; /* keep badge at top-left area */
   margin: 0;
 }
 
@@ -145,19 +145,25 @@ main[role="main"], .main-content {
   margin-top: 2px;
 }
 
-/* Ensure title/meta occupy the middle column */
+/* Center content column title/meta */
 .submission-list .item-content {
   grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
 }
 
-/* Actions column: compact buttons and small badges */
+/* Actions column: keep actions right aligned and allow bottom placement */
 .submission-list .item-actions {
   grid-column: 3 / 4;
   text-align: right;
   display:flex;
   gap:8px;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end; /* align actions to bottom-right of the row */
   flex-wrap: wrap;
 }
 
@@ -332,6 +338,7 @@ ul.quick-links, ul.quick-links li {
     justify-content: flex-start;
     margin-top: 6px;
     grid-column: 2 / 3;
+    align-items: center;
   }
   .footer-grid { grid-template-columns: 1fr; }
 }
