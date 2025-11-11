@@ -59,12 +59,12 @@ main[role="main"], .main-content {
   font-size: 18px;
 }
 
-/* NAV: pills (unchanged) */
+/* NAV: pills */
 .topnav { display:flex; align-items:center; gap:12px; }
 .nav-links { display:flex; gap:12px; align-items:center; }
 .mobile-nav-toggle { display: none; }
 
-/* Buttons (unchanged tokens usage) */
+/* Buttons (tokens usage) */
 .greenbutton {
   cursor: pointer;
   display: inline-block;
@@ -78,100 +78,7 @@ main[role="main"], .main-content {
   box-shadow: 0 6px 18px rgba(6,95,70,0.12), inset 0 -2px 0 rgba(0,0,0,0.06);
 }
 
-/* ---------- Submission history: wider and compact rows ---------- */
-
-/* Give the submission-list a bit more horizontal breathing room (wider than typical container).
-   This only affects the submission-list component, not the entire site width. */
-.submission-list {
-  counter-reset: submissions;
-  list-style: none;
-  padding-left: 0;
-  margin: 16px auto;
-  display: grid;
-  gap: 12px;
-  max-width: 1240px; /* wider than container for more comfortable reading */
-  width: 100%;
-}
-
-/* Compact, low-height rows: reduced padding and explicit min-height */
-.submission-list li {
-  counter-increment: submissions;
-  display: grid;
-  /* layout: small index / content / actions */
-  grid-template-columns: 64px 1fr 360px;
-  gap: 16px;
-  align-items: center;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  padding: 8px;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-1);
-  min-height: 48px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Index badge (slightly larger). Place in the first column and center it. */
-.submission-list li::before {
-  content: counter(submissions);
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
-  color: var(--neutral-900);
-  font-weight: 700;
-  font-size: 15px;
-  border: 1px solid var(--border-color);
-  /* ensure it sits in the first grid column and is centered */
-  grid-column: 1 / 2;
-  justify-self: center;
-  align-self: center;
-  margin: 0;
-}
-
-/* Content column */
-.submission-list .item-title {
-  font-weight: 700;
-  color: var(--neutral-900);
-  margin-bottom: 2px;
-  font-size: 14.5px;
-}
-.submission-list .item-meta {
-  color: var(--neutral-500);
-  font-size: var(--text-sm);
-  margin-top: 2px;
-}
-
-/* Ensure title/meta occupy the middle column */
-.submission-list .item-content {
-  grid-column: 2 / 3;
-}
-
-/* Actions column: compact buttons and small badges */
-.submission-list .item-actions {
-  grid-column: 3 / 4;
-  text-align: right;
-  display:flex;
-  gap:8px;
-  justify-content: flex-end;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-/* Badges more compact */
-.badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  color: white;
-}
-
-/* Compact action buttons */
+/* Neutral action button */
 .action-btn {
   text-decoration: none;
   padding: 6px 10px;
@@ -186,6 +93,108 @@ main[role="main"], .main-content {
   background: linear-gradient(90deg, var(--color-brand-1) 0%, var(--color-brand-2) 40%, var(--color-brand-3) 100%);
   color: white;
   border: none;
+}
+
+/* ---------- Submission history: wider and compact rows ---------- */
+
+.submission-list {
+  counter-reset: submissions;
+  list-style: none;
+  padding-left: 0;
+  margin: 16px auto;
+  display: grid;
+  gap: 12px;
+  max-width: 1240px; /* wider than container for more comfortable reading */
+  width: 100%;
+}
+
+.submission-list li {
+  counter-increment: submissions;
+  display: grid;
+  grid-template-columns: 64px 1fr 360px;
+  gap: 16px;
+  align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 8px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  min-height: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Index badge: positioned in first column, top area */
+.submission-list li::before {
+  content: counter(submissions);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+  color: var(--neutral-900);
+  font-weight: 700;
+  font-size: 15px;
+  border: 1px solid var(--border-color);
+  grid-column: 1 / 2;
+  justify-self: center;
+  align-self: start; /* keep badge at top-left area */
+  margin: 0;
+}
+
+/* Center content column title/meta (vertically and horizontally) */
+.submission-list .item-content {
+  grid-column: 2 / 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 4px;
+}
+
+/* Make sure individual elements span the column width for proper centering */
+.submission-list .item-content .timestamp,
+.submission-list .item-content .item-title,
+.submission-list .item-content .item-meta {
+  display: block;
+  width: 100%;
+}
+
+/* Typography for title/meta */
+.submission-list .item-title {
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 2px;
+  font-size: 14.5px;
+}
+.submission-list .item-meta {
+  color: var(--neutral-500);
+  font-size: var(--text-sm);
+  margin-top: 2px;
+}
+
+/* Actions column: keep actions right aligned and allow bottom placement */
+.submission-list .item-actions {
+  grid-column: 3 / 4;
+  text-align: right;
+  display:flex;
+  gap:8px;
+  justify-content: flex-end;
+  align-items: flex-end; /* align actions to bottom-right of the row */
+  flex-wrap: wrap;
+}
+
+/* Compact badges */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
 }
 
 /* ---------- Forms: nicer, comfortable, two-column grid ---------- */
@@ -266,7 +275,7 @@ main[role="main"], .main-content {
   font-size: 13px;
 }
 
-/* ---------- Hero quick links and CTA (unchanged) ---------- */
+/* ---------- Hero quick links and CTA ---------- */
 .hero .cta-row {
   display: flex;
   gap: 12px;
@@ -274,34 +283,18 @@ main[role="main"], .main-content {
   margin-top: 18px;
 }
 
-/* Quick links look like calm tiles */
-/* Remove bullets and default left padding/margin */
+/* Quick links look like calm tiles (horizontal by default) */
 .quick-links {
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-/* Default vertical spacing (optional) */
-.quick-links li {
-  margin: 0.25rem 0;
-  padding: 0;
-}
-
-/* If you want the links inline (horizontal) use the .horizontal modifier */
-.quick-links.horizontal {
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
-
-/* Stronger override if existing rules are more specific */
-ul.quick-links, ul.quick-links li {
-  list-style: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
+.quick-links li { margin: 0; padding: 0; }
 .quick-link-btn {
   display: inline-flex;
   align-items: center;
@@ -332,11 +325,55 @@ ul.quick-links, ul.quick-links li {
     justify-content: flex-start;
     margin-top: 6px;
     grid-column: 2 / 3;
+    align-items: center;
   }
-  .footer-grid { grid-template-columns: 1fr; }
+
+  /* Quick links stack on small screens */
+  .quick-links { flex-direction: column; align-items: stretch; }
+  .quick-links li { width: 100%; }
+  .quick-link-btn { width: 100%; justify-content: center; }
 }
 
 @media (max-width: 800px) {
   .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg-surface); padding: 10px; border-bottom: 1px solid var(--border-color); flex-direction: column; gap: 8px; }
   .mobile-nav-toggle { display: inline-block; }
+}
+
+/* Small accessibility / focus styles */
+.has-tooltip:focus,
+.action-btn:focus,
+.greenbutton:focus,
+.quick-link-btn:focus {
+  outline: 3px solid rgba(0,123,255,0.12);
+  outline-offset: 2px;
+}
+
+/* Ensure header/nav anchors look like buttons (load after site.css) */
+.site-header .nav-links a,
+.header-inner .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--neutral-900);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+/* Primary-looking header link (if you mark a link with .primary or .btn-primary) */
+.site-header .nav-links a.primary,
+.site-header .nav-links a.btn-primary {
+  background: linear-gradient(90deg, var(--color-brand-1) 0%, var(--color-brand-2) 40%, var(--color-brand-3) 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 18px rgba(6,95,70,0.12), inset 0 -2px 0 rgba(0,0,0,0.06);
+}
+
+/* Secondary / neutral style (looks like the other action buttons) */
+.site-header .nav-links a:not(.primary) {
+  background: transparent;
+  color: var(--neutral-700);
+  border: 1px solid var(--border-color);
 }
