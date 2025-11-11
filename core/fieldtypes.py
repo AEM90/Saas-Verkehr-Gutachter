@@ -1,6 +1,6 @@
 """Lightweight registry for field types and helpers.
 
-Add field types here; this module is intentionally small and migraton-free.
+Add field types here; this module is intentionally small and migration-free.
 """
 
 FIELD_TYPES = [
