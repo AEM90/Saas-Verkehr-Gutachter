@@ -1,0 +1,55 @@
+/* admin-overrides.css - gentle polish for Django Admin to align with site look */
+
+/* Use the same font and background */
+body, .module, #content, .breadcrumbs {
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--neutral-900);
+}
+
+/* Page container */
+#content-main, #content {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+}
+
+/* Forms, list tables */
+.change-form, .module .change-list, .object-tools {
+  background: transparent;
+  border: none;
+}
+
+/* Buttons in admin (make them look like site buttons) */
+a.button, .submit-row input[type=submit], .addlink {
+  background: linear-gradient(90deg, var(--color-brand-1) 0%, var(--color-brand-2) 40%, var(--color-brand-3) 100%);
+  color: white !important;
+  border: none !important;
+  border-radius: 8px;
+  padding: 6px 12px;
+  text-decoration: none;
+}
+
+/* Make table headers subtle */
+.change-list thead th {
+  background: var(--bg-surface);
+  color: var(--neutral-700);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Row hover */
+.results tbody tr:hover {
+  background: linear-gradient(90deg, rgba(0,0,0,0.01), rgba(0,0,0,0.01));
+}
+
+/* Compact the admin header a bit */
+#header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+}
+
+body {
+  color: var(--neutral-900);
+}

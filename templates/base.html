@@ -1,0 +1,100 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Saas-Verkehr-Gutachter{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <div class="container header-inner">
+      <a class="brand" href="{% url 'core:landing' %}">Saas‑Verkehr‑Gutachter</a>
+
+      <nav class="topnav" role="navigation" aria-label="Main navigation">
+        <button id="mobile-nav-toggle" class="mobile-nav-toggle" aria-expanded="false" aria-controls="nav-links">
+          ☰
+        </button>
+        <div id="nav-links" class="nav-links">
+          <a class="nav-link nav-link--primary" href="{% url 'core:create_report' %}">Create Report</a>
+          <a class="nav-link" href="{% url 'core:history' %}">History</a>
+        </div>
+      </nav>
+
+      <div class="user-actions">
+        {% if user.is_authenticated %}
+          <span class="who">Hi, {{ user.get_full_name|default:user.username }}</span>
+          <a class="admin-link" href="{% url 'admin:index' %}">Admin</a>
+          <a class="btn-ghost" href="{% url 'core:logout' %}">Logout</a>
+        {% else %}
+          <a class="nav-link nav-link--primary" href="{% url 'core:login' %}">Sign in</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main class="container main-content" role="main">
+    {% if messages %}
+      <ul class="messages" aria-live="polite">
+        {% for m in messages %}
+          <li class="msg {{ m.tags }}">{{ m }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <strong>Saas‑Verkehr‑Gutachter</strong>
+        <p class="small muted">Fast, auditable measurement reports — configurable forms and templates.</p>
+      </div>
+
+      <div class="footer-links">
+        <h4>Quick links</h4>
+        <ul class="quick-links">
+          <li><a class="quick-link-btn" href="{% url 'core:create_report' %}">Create report</a></li>
+          <li><a class="quick-link-btn" href="{% url 'core:history' %}">Submission history</a></li>
+          <li><a class="quick-link-btn" href="{% url 'admin:index' %}">Admin</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-trust">
+        <h4>Trust & contact</h4>
+        <ul>
+          <li>Email: <a href="mailto:support@example.com">support@example.com</a></li>
+          <li><a href="#">Privacy</a> · <a href="#">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <small>© {% now "Y" %} Saas‑Verkehr‑Gutachter — Secure • GDPR-aware</small>
+    </div>
+  </footer>
+
+  <script src="{% static 'js/site.js' %}"></script>
+  <script>
+    // smaller helper: toggle nav open state (adds class to body); keeps burger hidden on desktop
+    (function(){
+      var toggle = document.getElementById('mobile-nav-toggle');
+      var nav = document.getElementById('nav-links');
+      if(!toggle || !nav) return;
+      toggle.addEventListener('click', function(){
+        var open = document.body.classList.toggle('nav-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      // ensure nav is visible on resize for desktop
+      window.addEventListener('resize', function(){
+        if(window.innerWidth > 800) {
+          nav.style.display = '';
+          document.body.classList.remove('nav-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

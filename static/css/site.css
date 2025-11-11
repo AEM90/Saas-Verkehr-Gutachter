@@ -1,0 +1,295 @@
+@import "tokens.css";
+
+/* site.css - updated: submission list wider + compact rows, improved form styles */
+
+/* Basic reset & base styles */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg-page);
+  color: var(--neutral-900);
+  font-size: var(--text-base);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column; /* footer pin behavior */
+}
+
+/* Layout container */
+.container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Ensure main grows so footer sits at bottom when content is short */
+main[role="main"], .main-content {
+  flex: 1 0 auto;
+  padding-top: 28px;
+  padding-bottom: 28px;
+}
+
+/* Header (unchanged) */
+.site-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-inner {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+.brand {
+  text-decoration: none;
+  color: var(--neutral-900);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+/* NAV: pills (unchanged) */
+.topnav { display:flex; align-items:center; gap:12px; }
+.nav-links { display:flex; gap:12px; align-items:center; }
+.mobile-nav-toggle { display: none; }
+
+/* Buttons (unchanged tokens usage) */
+.greenbutton {
+  cursor: pointer;
+  display: inline-block;
+  color: white;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  background: linear-gradient(90deg, var(--color-brand-1) 0%, var(--color-brand-2) 40%, var(--color-brand-3) 100%);
+  box-shadow: 0 6px 18px rgba(6,95,70,0.12), inset 0 -2px 0 rgba(0,0,0,0.06);
+}
+
+/* ---------- Submission history: wider and compact rows ---------- */
+
+/* Give the submission-list a bit more horizontal breathing room (wider than typical container).
+   This only affects the submission-list component, not the entire site width. */
+.submission-list {
+  counter-reset: submissions;
+  list-style: none;
+  padding-left: 0;
+  margin: 16px auto;
+  display: grid;
+  gap: 12px;
+  max-width: 1240px; /* wider than container for more comfortable reading */
+  width: 100%;
+}
+
+/* Compact, low-height rows: reduced padding and explicit min-height */
+.submission-list li {
+  counter-increment: submissions;
+  display: grid;
+  /* wider left index + compact center + larger actions column */
+  grid-template-columns: 92px 1fr 420px;
+  gap: 16px;
+  align-items: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 8px;                /* reduced vertical padding for compactness */
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-1);
+  min-height: 48px;           /* as low as practically possible while keeping readable */
+}
+
+/* Index badge (slightly larger) */
+.submission-list li::before {
+  content: counter(submissions);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+  color: var(--neutral-900);
+  font-weight: 700;
+  font-size: 15px;
+  border: 1px solid var(--border-color);
+  margin-left: 4px;
+}
+
+/* Content column */
+.submission-list .item-title {
+  font-weight: 700;
+  color: var(--neutral-900);
+  margin-bottom: 2px;
+  font-size: 14.5px;
+}
+.submission-list .item-meta {
+  color: var(--neutral-500);
+  font-size: var(--text-sm);
+  margin-top: 2px;
+}
+
+/* Actions column: compact buttons and small badges */
+.submission-list .item-actions {
+  text-align: right;
+  display:flex;
+  gap:8px;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Badges more compact */
+.badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+}
+
+/* Compact action buttons */
+.action-btn {
+  text-decoration: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--neutral-700);
+  font-weight: 700;
+  font-size: 13px;
+}
+.action-btn.primary { background: linear-gradient(90deg, var(--color-brand-1) 0%, var(--color-brand-2) 40%, var(--color-brand-3) 100%); color: white; border: none; }
+
+/* ---------- Forms: nicer, comfortable, two-column grid ---------- */
+
+.form-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 18px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-1);
+  margin-bottom: 18px;
+}
+
+/* Responsive form grid: 2 columns on wide screens, 1 column on small */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+/* Each form-row is a vertical stack: label, input, help, errors */
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+.form-row label {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--neutral-900);
+  font-size: 14px;
+}
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row input[type="email"],
+.form-row select,
+.form-row textarea,
+.form-row .django-file-input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-page);
+  color: var(--neutral-900);
+  font-size: 14px;
+}
+.form-row textarea { min-height: 100px; resize: vertical; }
+
+/* Helptext & errors */
+.form-row .helptext {
+  font-size: var(--text-sm);
+  color: var(--neutral-500);
+  margin-top: 6px;
+}
+.errorlist {
+  color: var(--color-error);
+  margin: 6px 0 0 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+/* Form actions row */
+.form-actions {
+  display:flex;
+  gap:10px;
+  margin-top: 12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+.form-actions .greenbutton {
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+/* Small helper text under submit */
+.form-footer {
+  margin-top: 8px;
+  color: var(--neutral-500);
+  font-size: 13px;
+}
+
+/* ---------- Hero quick links and CTA (unchanged) ---------- */
+.hero .cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+/* Quick links look like calm tiles */
+.quick-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+.quick-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.01));
+  border: 1px solid var(--border-color);
+  color: var(--neutral-700);
+  text-decoration: none;
+  box-shadow: var(--shadow-2);
+  font-weight: 600;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 900px) {
+  .submission-list li {
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: auto auto;
+    min-height: auto;
+  }
+  .submission-list .item-actions {
+    justify-content: flex-start;
+    margin-top: 6px;
+  }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 800px) {
+  .nav-links { display: none; position: absolute; top: 64px; left: 0; right: 0; background: var(--bg-surface); padding: 10px; border-bottom: 1px solid var(--border-color); flex-direction: column; gap: 8px; }
+  .mobile-nav-toggle { display: inline-block; }
+}

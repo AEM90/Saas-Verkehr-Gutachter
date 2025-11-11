@@ -1,0 +1,88 @@
+/* tokens.css
+   Central design tokens for Saas-Verkehr-Gutachter.
+   Edit these values to change the whole site's look.
+   Place this file in static/css/ so site.css can import it via @import "tokens.css";
+*/
+
+/* ========== Base tokens ========== */
+:root {
+  /* Color palette (semantic tokens) */
+  --color-brand-1: #00A14D; /* primary strong green */
+  --color-brand-2: #27B23E; /* mid green */
+  --color-brand-3: #8AD200; /* yellowish-green */
+
+  --color-accent: #0068BF; /* secondary accent (links, subtle accents) */
+
+  /* Neutral / text */
+  --neutral-900: #0f172a; /* primary text */
+  --neutral-800: #0b1220;
+  --neutral-700: #374151;
+  --neutral-500: #6b7280;
+  --neutral-300: #cbd5e1;
+  --neutral-200: #e6e9ee;
+  --neutral-100: #f3f6fb;
+  --neutral-50:  #fafafa;
+
+  /* Status colors */
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-error:   #ef4444;
+  --color-info:    #0284c7;
+
+  /* Background & surfaces */
+  --bg-page: var(--neutral-50);
+  --bg-surface: #ffffff;
+
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-sm: 13px;
+  --lead-scale: 1.125;
+
+  /* Spacing scale */
+  --space-xxs: 4px;
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+
+  /* Shadows */
+  --shadow-1: 0 6px 18px rgba(15,23,42,0.06);
+  --shadow-2: 0 2px 8px rgba(15,23,42,0.05);
+
+  /* Layout */
+  --content-max-width: 1100px;
+
+  /* Button tokens */
+  --btn-padding-y: 10px;
+  --btn-padding-x: 16px;
+
+  /* Misc */
+  --border-color: var(--neutral-200);
+}
+
+/* ========== Optional dark theme override ==========
+   To enable dark theme, either:
+   - Set <html data-theme="dark"> in the DOM, or
+   - Use the theme.js helper to toggle and persist the theme.
+============================================= */
+[data-theme="dark"] {
+  --bg-page: #071023;
+  --bg-surface: #041024;
+  --neutral-900: #e6eef8;
+  --neutral-700: #cfe6ff;
+  --neutral-500: #9fbcd4;
+  --neutral-200: #214355;
+  --border-color: rgba(255,255,255,0.06);
+
+  --color-accent: #4fb0ff;
+  --shadow-1: none;
+}

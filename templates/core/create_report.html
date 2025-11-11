@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Create Report — Saas-Verkehr-Gutachter{% endblock %}
+{% block content %}
+  <h2>Create Report</h2>
+  <p>Select a form (Messmethode) to start a new submission and generate a report.</p>
+
+  {% if messmethodes %}
+    <ul class="method-list">
+      {% for mm in messmethodes %}
+        <li>
+          <strong>{{ mm.name }}</strong> — <a class="greenbutton small" href="{% url 'formsapp:messmethode_detail' mm.slug %}">Open form</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No forms (Messmethodes) available for your company. Ask an admin (link below) to add forms.</p>
+  {% endif %}
+
+  <p><a class="link-admin" href="{% url 'admin:index' %}">Admin: manage forms & templates</a></p>
+{% endblock %}

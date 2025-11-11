@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Home — Saas-Verkehr-Gutachter{% endblock %}
+{% block content %}
+  <section class="hero">
+    <h2>Welcome to Saas-Verkehr-Gutachter</h2>
+    <p class="lead">Create reports quickly and manage your measurement forms.</p>
+
+    <div class="cta-row">
+      <a class="greenbutton" href="{% url 'core:create_report' %}">Create Report</a>
+      <a class="greenbutton" href="{% url 'core:history' %}">View History</a>
+      <a class="greenbutton" href="{% url 'admin:index' %}">Go to Admin (manage forms & templates)</a>
+    </div>
+
+    <div class="quick-help">
+      <p>Tip: Upload or edit templates in the Admin &rarr; Reports &rarr; Report templates.</p>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Submission History — Saas-Verkehr-Gutachter{% endblock %}
+{% block content %}
+  <h2>Your Submission History</h2>
+
+  {% if submissions %}
+    <ol class="submission-list">
+      {% for s in submissions %}
+        <li>
+          <div class="item-index" aria-hidden="true"></div>
+          <div>
+            <div class="item-title">#{{ s.pk }} — {{ s.messmethode.name }}</div>
+            <div class="item-meta">{{ s.created_at|date:"Y-m-d H:i" }} — {{ s.submitted|yesno:"Submitted,Draft" }}</div>
+          </div>
+          <div class="item-actions">
+            {% if s.reports.exists %}
+              {% for r in s.reports.all %}
+                {% if r.file %}
+                  <a class="action-btn" href="{{ r.file.url }}">Download</a>
+                {% else %}
+                  <span class="badge badge--pending">Pending</span>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <a class="action-btn primary" href="{% url 'formsapp:messmethode_detail' s.messmethode.slug %}">Open form</a>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+  {% else %}
+    <p>No submissions yet. <a class="nav-link nav-link--primary" href="{% url 'core:create_report' %}">Create a report</a> to get started.</p>
+  {% endif %}
+{% endblock %}
