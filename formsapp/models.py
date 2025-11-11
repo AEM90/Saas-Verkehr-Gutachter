@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
 
+# New field type constant
+FIELD_TYPE_BOOLEAN = "boolean"
+
+# Other common field types: email, integer, decimal, textarea, choice, datetime, url, file, phone
+
 class Messmethode(models.Model):
     company = models.ForeignKey("companies.Company", on_delete=models.CASCADE, related_name="messmethodes")
     name = models.CharField(max_length=200)
@@ -19,6 +24,7 @@ FIELD_TYPES = [
     ("date", "Date"),
     ("choice", "Choice"),
     ("file", "File"),
+    ("boolean", "Boolean"),
 ]
 
 class FieldDefinition(models.Model):
