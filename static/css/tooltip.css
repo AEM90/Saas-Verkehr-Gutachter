@@ -1,0 +1,65 @@
+/* static/css/tooltip.css
+   Minimal CSS-only tooltip for links with .has-tooltip and data-tooltip.
+   Shows on hover and focus (keyboard-accessible). Move to your main stylesheet.
+*/
+
+.has-tooltip {
+  position: relative;
+  cursor: help;
+  text-decoration: none;
+  color: inherit; /* keep link color or set your preferred color */
+}
+
+/* Tooltip bubble */
+.has-tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 8px);
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+  z-index: 1000;
+  transform-origin: center top;
+  /* start slightly translated for a subtle movement */
+  transform: translateX(-50%) translateY(6px);
+}
+
+/* Small arrow under the bubble */
+.has-tooltip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(100% + 2px);
+  border-width: 6px;
+  border-style: solid;
+  border-color: rgba(0,0,0,0.85) transparent transparent transparent;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* Show on hover and focus */
+.has-tooltip:hover::after,
+.has-tooltip:focus::after,
+.has-tooltip:hover::before,
+.has-tooltip:focus::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Optional: keep tooltip visible while keyboard focused */
+.has-tooltip:focus {
+  outline: 2px solid rgba(0, 123, 255, 0.25);
+  outline-offset: 2px;
+}
